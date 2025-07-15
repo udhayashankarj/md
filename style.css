@@ -1,0 +1,86 @@
+/* Custom styles for the body background */
+body {
+    background-image: url('pic.jpg'); /* Updated background image URL */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Makes the background fixed while scrolling */
+}
+.header-absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20; /* Ensure it's above the hero overlay */
+        }
+
+/* Custom styles for the hero section background and overlay */
+.hero-background {
+    background-image: url('pic.jpg'); /* Set background image for hero section */
+    background-size: cover;
+    background-position: center;
+    position: relative; /* Needed for absolute positioning of overlay */
+}
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Carousel specific styles */
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+}
+.carousel-slide {
+    display: none; /* Hide all slides by default */
+    width: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+.carousel-slide.active {
+    display: block; /* Show active slide */
+    opacity: 1;
+}
+.carousel-slide img {
+    width: 100%;
+    height: 400px; /* Fixed height for carousel images */
+    object-fit: cover; /* Ensure images cover the area */
+    border-radius: 0.75rem; /* rounded-xl from Tailwind */
+}
+.carousel-dot {
+    width: 30px; /* Make it wider for a dash look */
+    height: 6px; /* Make it thinner for a dash look */
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 3px; /* Slightly rounded corners for the dash */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.carousel-dot.active {
+    background-color: white;
+}
+/* Carousel arrow button styles */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 9999px; /* Fully rounded */
+    transition: background-color 0.3s ease;
+    z-index: 10; /* Ensure arrows are above slides */
+}
+.carousel-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.carousel-arrow.left {
+    left: 10px;
+}
+.carousel-arrow.right {
+    right: 10px;
+}

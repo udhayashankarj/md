@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography - My Awesome Home Page</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="style.css" rel="stylesheet">
+    <!-- Google Fonts - Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font for the entire page */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1a202c; /* Dark background to match theme */
+        }
+        /* Ensure the header is positioned absolutely over the hero section */
+        .header-absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20; /* Ensure it's above the hero overlay */
+        }
+        /* Hero section background for Photography page */
+        .photography-hero-background {
+            background-image: url('pic.jpg'); /* Using pic.jpg for the hero background */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .photography-hero-overlay {
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Album Grid Styles (Common for Wedding, Candid, Product) */
+        .album-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+        }
+        .album-grid-item img {
+            width: 100%;
+            height: 300px; /* Consistent height for album images */
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Effect 1: Zoom & Overlay (Wedding Album) */
+        .effect-zoom-overlay .overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .effect-zoom-overlay:hover .overlay {
+            opacity: 1;
+        }
+        .effect-zoom-overlay:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Effect 2: Slide-Up Caption (Candid Album) */
+        .effect-slide-up .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .effect-slide-up:hover .caption {
+            transform: translateY(0);
+        }
+
+        /* Effect 3: Grayscale to Color (Product Album) */
+        .effect-grayscale img {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease-in-out;
+        }
+        .effect-grayscale:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Carousel specific styles (reused from home page) */
+        .carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .carousel-slide {
+            display: none; /* Hide all slides by default */
+            width: 100%;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .carousel-slide.active {
+            display: block; /* Show active slide */
+            opacity: 1;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 400px; /* Fixed height for carousel images */
+            object-fit: contain; /* Changed from 'cover' to 'contain' to show full image */
+            object-position: center; /* Center the image within the container */
+            border-radius: 0.75rem; /* rounded-xl from Tailwind */
+            background-color: #000; /* Add a black background for letterboxing */
+        }
+        .carousel-dot {
+            width: 30px; /* Make it wider for a dash look */
+            height: 6px; /* Make it thinner for a dash look */
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 3px; /* Slightly rounded corners for the dash */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-dot.active {
+            background-color: white;
+        }
+        /* Carousel arrow button styles */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border-radius: 9999px; /* Fully rounded */
+            transition: background-color 0.3s ease;
+            z-index: 10; /* Ensure arrows are above slides */
+        }
+        .carousel-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .carousel-arrow.left {
+            left: 10px;
+        }
+        .carousel-arrow.right {
+            right: 10px;
+        }
+
+        /* General Section Background Styles */
+        .section-bg {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 1;
+        }
+        .section-bg-overlay {
+            background-color: rgba(0, 0, 0, 0.7); /* Consistent dark overlay */
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+        }
+        .section-content {
+            position: relative;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body class="text-yellow-100">
+
+    <!-- Header Section -->
+    <header class="header-absolute bg-transparent py-4 px-6 md:px-8">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Logo/Site Title -->
+            <div class="text-2xl font-bold text-yellow-300">
+                MyBrand
+            </div>
+
+            <!-- Burger Menu Button (Mobile) -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+
+            <!-- Navigation Menu (Desktop & Mobile Toggle) -->
+            <nav id="mobile-menu" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center justify-center w-full md:w-auto
+                                       fixed inset-0 bg-gray-950 z-50 md:relative md:bg-transparent md:flex-row md:justify-end">
+                <!-- Close Button (Mobile) -->
+                <button id="close-menu-button" class="md:hidden absolute top-4 right-6 text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <a href="index.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Home</a>
+                <a href="Aboutus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">About us</a>
+                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Services</a>
+                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Photography</a>
+                <a href="contactus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Contacts</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto">
+        <!-- Section 1: Hero Section for Photography Page -->
+        <section class="photography-hero-background min-h-screen flex items-center justify-center text-white rounded-xl shadow-lg overflow-hidden relative">
+            <div class="photography-hero-overlay"></div>
+            <div class="relative z-10 text-center">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-yellow-300">Our Photography</h1>
+                <p class="text-lg md:text-xl mt-4 max-w-3xl mx-auto opacity-90">Explore our diverse galleries and see the world through our lens.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Wedding Album (Grid with Zoom & Overlay Effect) -->
+        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg section-bg" style="background-image: url('https://placehold.co/1920x1080/2a2a2a/FFFFFF?text=Wedding+Background');">
+            <div class="section-bg-overlay"></div>
+            <div class="section-content">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">Wedding Photography</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="album-grid-item effect-zoom-overlay">
+                        <img src="wedding/w1.png" alt="Wedding Photo 1">
+                        <div class="overlay">
+                            <span class="text-2xl font-bold">Joyful Moments</span>
+                        </div>
+                    </div>
+                    <div class="album-grid-item effect-zoom-overlay">
+                        <img src="wedding/w2.png" alt="Wedding Photo 1">
+                        <div class="overlay">
+                            <span class="text-2xl font-bold">Joyful Moments</span>
+                        </div>
+                    </div><div class="album-grid-item effect-zoom-overlay">
+                        <img src="wedding/w3.png" alt="Wedding Photo 1">
+                        <div class="overlay">
+                            <span class="text-2xl font-bold">Joyful Moments</span>
+                        </div>
+                    </div><div class="album-grid-item effect-zoom-overlay">
+                        <img src="wedding/w4.png" alt="Wedding Photo 1">
+                        <div class="overlay">
+                            <span class="text-2xl font-bold">Joyful Moments</span>
+                        </div>
+                    </div><div class="album-grid-item effect-zoom-overlay">
+                        <img src="wedding/w5.png" alt="Wedding Photo 1">
+                        <div class="overlay">
+                            <span class="text-2xl font-bold">Joyful Moments</span>
+                        </div>
+                    </div><div class="album-grid-item effect-zoom-overlay">
+                        <img src="wedding/w6.png" alt="Wedding Photo 1">
+                        <div class="overlay">
+                            <span class="text-2xl font-bold">Joyful Moments</span>
+                        </div>
+                    </div><div class="album-grid-item effect-zoom-overlay">
+                        <img src="wedding/w7.png" alt="Wedding Photo 1">
+                        <div class="overlay">
+                            <span class="text-2xl font-bold">Joyful Moments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Concert Album (Carousel) -->
+        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg section-bg" style="background-image: url('https://placehold.co/1920x1080/3a3a3a/FFFFFF?text=Concert+Background');">
+            <div class="section-bg-overlay"></div>
+            <div class="section-content">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">Concert Photography</h2>
+                <div class="carousel-container rounded-xl shadow-lg">
+                    <div class="carousel-slide active" data-carousel="concert">
+                        <img src="concert/c1.jpg" alt="Concert Image 1">
+                    </div>
+                    <div class="carousel-slide" data-carousel="concert">
+                        <img src="concert/c2.jpg" alt="Concert Image 2">
+                    </div>
+                    <div class="carousel-slide" data-carousel="concert">
+                        <img src="concert/c3.jpg" alt="Concert Image 3">
+                    </div>
+                    <div class="carousel-slide" data-carousel="concert">
+                        <img src="concert/c4.jpg" alt="Concert Image 4">
+                    </div>
+                    <div class="carousel-slide" data-carousel="concert">
+                        <img src="concert/c5.jpg" alt="Concert Image 4">
+                    </div>
+                    <div class="carousel-slide" data-carousel="concert">
+                        <img src="concert/c6.jpg" alt="Concert Image 4">
+                    </div>
+                    <div class="carousel-slide" data-carousel="concert">
+                        <img src="concert/c7.jpg" alt="Concert Image 4">
+                    </div>
+                    <div class="carousel-slide" data-carousel="concert">
+                        <img src="concert/c8.jpg" alt="Concert Image 4">
+                    </div>
+
+                    <!-- Carousel Navigation Arrows -->
+                    <button class="carousel-arrow left" id="prevConcertSlide">&#10094;</button>
+                    <button class="carousel-arrow right" id="nextConcertSlide">&#10095;</button>
+
+                    <!-- Carousel Navigation Dots -->
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        <span class="carousel-dot active" data-slide="0" data-carousel="concert"></span>
+                        <span class="carousel-dot" data-slide="1" data-carousel="concert"></span>
+                        <span class="carousel-dot" data-slide="2" data-carousel="concert"></span>
+                        <span class="carousel-dot" data-slide="3" data-carousel="concert"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Candid Photography (Grid with Slide-Up Caption Effect) -->
+        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg section-bg" style="background-image: url('https://placehold.co/1920x1080/4a4a4a/FFFFFF?text=Candid+Background');">
+            <div class="section-bg-overlay"></div>
+            <div class="section-content">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">Candid Photography</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="album-grid-item effect-slide-up">
+                        <img src="wedding/w16.jpg" alt="Candid Photo 1">
+                        <div class="caption">
+                            <h3 class="font-semibold text-lg">Genuine Smiles</h3>
+                            <p class="text-sm text-gray-300">Unposed, authentic moments.</p>
+                        </div>
+                    </div>
+                    <div class="album-grid-item effect-slide-up">
+                        <img src="wedding/w15.jpg" alt="Candid Photo 2">
+                        <div class="caption">
+                            <h3 class="font-semibold text-lg">Spontaneous Joy</h3>
+                            <p class="text-sm text-gray-300">Capturing life as it happens.</p>
+                        </div>
+                    </div>
+                    <div class="album-grid-item effect-slide-up">
+                        <img src="wedding/w14.jpg" alt="Candid Photo 3">
+                        <div class="caption">
+                            <h3 class="font-semibold text-lg">Natural Beauty</h3>
+                            <p class="text-sm text-gray-300">Every emotion, beautifully preserved.</p>
+                        </div>
+                    </div>
+                    <div class="album-grid-item effect-slide-up">
+                        <img src="wedding/w13.jpg" alt="Candid Photo 4">
+                        <div class="caption">
+                            <h3 class="font-semibold text-lg">Unforgettable Glimpses</h3>
+                            <p class="text-sm text-gray-300">Raw, unscripted moments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Product Photography (Grid with Grayscale to Color Effect) -->
+        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg section-bg" style="background-image: url('https://placehold.co/1920x1080/5a5a5a/FFFFFF?text=Product+Background');">
+            <div class="section-bg-overlay"></div>
+            <div class="section-content">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">Product Photography</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="album-grid-item effect-grayscale">
+                        <img src="concert/c5.jpg" alt="Product Photo 1">
+                    </div>
+                    <div class="album-grid-item effect-grayscale">
+                        <img src="concert/c6.jpg">
+                    </div>
+                    <div class="album-grid-item effect-grayscale">
+                        <img src="concert/c3.jpg" alt="Product Photo 3">
+                    </div>
+                    <div class="album-grid-item effect-grayscale">
+                        <img src="concert/c4.jpg" alt="Product Photo 4">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Contact Us Section -->
+        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg section-bg" style="background-image: url('a');">
+            <div class="section-bg-overlay"></div>
+            <div class="section-content">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">
+                    Get in Touch
+                </h2>
+                <p class="text-lg md:text-xl mb-12 text-center text-gray-300 max-w-4xl mx-auto">
+                    Every picture tells a story. Let us help you tell yours with breathtaking photography. From portraits to landscapes, we turn fleeting moments into memories that last a lifetime. With an eye for detail and a heart for storytelling, our team of visual artists transforms your vision into stunning visuals.
+                </p>
+
+                <div class="flex flex-col lg:flex-row justify-between gap-12 text-gray-300">
+                    <div class="lg:w-1/2">
+                        <h3 class="text-xl font-semibold mb-4 text-yellow-300">Our Story</h3>
+                        <p class="text-base md:text-lg mb-6 leading-relaxed">
+                            With an eye for detail and a heart for storytelling, our team of visual artists transforms fleeting moments into memories that last a lifetime. We are passionate about creating visual narratives that resonate with emotion and authenticity.
+                        </p>
+                    </div>
+
+                    <div class="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-yellow-300">Quick Links</h3>
+                            <ul class="space-y-2">
+                                <li><a href="index.html" class="hover:text-yellow-300 transition-colors duration-200">Home</a></li>
+                                <li><a href="about.html" class="hover:text-yellow-300 transition-colors duration-200">About us</a></li>
+                                <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">Services</a></li>
+                                <li><a href="photography.html" class="hover:text-yellow-300 transition-colors duration-200">Photography</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-yellow-300">Contact</h3>
+                            <ul class="space-y-2">
+                                <li><a href="mailto:Manish@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">Manish@gmail.com</a></li>
+                                <li><a href="mailto:MDstudio@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">MDstudio@gmail.com</a></li>
+                                <li>Imagix Films, Ground Floor, Club 7 Mall, Thiruvalla, Kerala 689101</li>
+                                <li>Phone no: +91 9988776655</li>
+                                <li>Phone no: +91 9988776655</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section (Reused from Home Page) -->
+    <footer class="bg-gray-950 text-yellow-100 py-6 px-6 md:px-8 mt-12 rounded-t-lg">
+        <div class="container mx-auto text-center text-sm">
+            &copy; 2025 All Rights Reserved to Imagixfilms | Powered by Bitogrid.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle logic
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = mobileMenu.querySelectorAll('a');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            });
+
+            closeMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                    }
+                });
+            });
+
+            // Carousel logic for Concert Album
+            let currentConcertSlide = 0;
+            const concertSlides = document.querySelectorAll('.carousel-slide[data-carousel="concert"]');
+            const concertDots = document.querySelectorAll('.carousel-dot[data-carousel="concert"]');
+            const prevConcertButton = document.getElementById('prevConcertSlide');
+            const nextConcertButton = document.getElementById('nextConcertSlide');
+            const totalConcertSlides = concertSlides.length;
+
+            function showConcertSlide(index) {
+                if (concertSlides.length === 0) return;
+                concertSlides.forEach(slide => slide.classList.remove('active'));
+                concertDots.forEach(dot => dot.classList.remove('active'));
+                concertSlides[index].classList.add('active');
+                concertDots[index].classList.add('active');
+            }
+
+            function nextConcertSlide() {
+                currentConcertSlide = (currentConcertSlide + 1) % totalConcertSlides;
+                showConcertSlide(currentConcertSlide);
+            }
+
+            function prevConcertSlide() {
+                currentConcertSlide = (currentConcertSlide - 1 + totalConcertSlides) % totalConcertSlides;
+                showConcertSlide(currentConcertSlide);
+            }
+
+            let concertSlideInterval = setInterval(nextConcertSlide, 5000);
+
+            function resetConcertInterval() {
+                clearInterval(concertSlideInterval);
+                concertSlideInterval = setInterval(nextConcertSlide, 5000);
+            }
+
+            if (prevConcertButton && nextConcertButton) {
+                prevConcertButton.addEventListener('click', function() {
+                    prevConcertSlide();
+                    resetConcertInterval();
+                });
+
+                nextConcertButton.addEventListener('click', function() {
+                    nextConcertSlide();
+                    resetConcertInterval();
+                });
+            }
+
+            concertDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.dataset.slide);
+                    currentConcertSlide = slideIndex;
+                    showConcertSlide(currentConcertSlide);
+                    resetConcertInterval();
+                });
+            });
+
+            if (concertSlides.length > 0) {
+                showConcertSlide(currentConcertSlide);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - My Awesome Home Page</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom font for the entire page */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1a202c; /* Dark background to match theme */
+        }
+        /* Ensure the header is positioned absolutely over the hero section */
+        .header-absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20; /* Ensure it's above the hero overlay */
+        }
+        /* Hero section background for Contact page */
+        .contact-hero-background {
+            background-image: url('pic.jpg'); /* Using pic.jpg for the hero background */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .contact-hero-overlay {
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            position: absolute;
+            inset: 0;
+        }
+
+        /* Main Contact Section with 4-way split background */
+        .contact-section-background {
+            position: relative;
+            min-height: 700px; /* Ensure enough height for the content and background */
+            overflow: hidden;
+        }
+        .contact-background-grid {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns for a single row */
+            grid-template-rows: 1fr; /* Changed to 1 row */
+            z-index: 0;
+        }
+        .contact-background-grid > div {
+            background-size: cover;
+            background-position: center;
+        }
+        .contact-content-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for readability */
+            z-index: 1;
+        }
+        .contact-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem; /* Add padding to content */
+        }
+
+        /* Message box styles */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2d3748; /* bg-gray-800 */
+            color: #fbd38d; /* text-yellow-300 */
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            display: none;
+            text-align: center;
+            max-width: 300px;
+        }
+        .message-box.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="text-yellow-100">
+
+    <!-- Header Section -->
+    <header class="header-absolute bg-transparent py-4 px-6 md:px-8">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Logo/Site Title -->
+            <div class="text-2xl font-bold text-yellow-300">
+                MyBrand
+            </div>
+
+            <!-- Burger Menu Button (Mobile) -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+
+            <!-- Navigation Menu (Desktop & Mobile Toggle) -->
+            <nav id="mobile-menu" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center justify-center w-full md:w-auto
+                                       fixed inset-0 bg-gray-950 z-50 md:relative md:bg-transparent md:flex-row md:justify-end">
+                <!-- Close Button (Mobile) -->
+                <button id="close-menu-button" class="md:hidden absolute top-4 right-6 text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <a href="index.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Home</a>
+                <a href="Aboutus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">About us</a>
+                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Services</a>
+                <a href="photography.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Photography</a>
+                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Contacts</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto">
+        <!-- Section 1: Hero Section for Contact Page -->
+        <section class="contact-hero-background min-h-screen flex items-center justify-center text-white rounded-xl shadow-lg overflow-hidden relative">
+            <div class="contact-hero-overlay"></div>
+            <div class="relative z-10 text-center">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-yellow-300">Contact Us</h1>
+                <p class="text-lg md:text-xl mt-4 max-w-3xl mx-auto opacity-90">We'd love to hear from you! Reach out to us for inquiries, bookings, or just to say hello.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Contact Information with 4-way split background -->
+        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg contact-section-background">
+            <!-- Background Grid with 4 Images -->
+            <div class="contact-background-grid">
+                <div style="background-image: url('wedding/w5.png');"></div>
+                <div style="background-image: url('concert/c2.jpg');"></div>
+                <div style="background-image: url('concert/c3.jpg');"></div>
+                <div style="background-image: url('concert/c4.jpg');"></div>
+            </div>
+            <!-- Overlay for readability -->
+            <div class="contact-content-overlay"></div>
+
+            <!-- Content on top of the background -->
+            <div class="contact-content text-white text-center">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-yellow-300">Get in Touch</h2>
+                <p class="text-lg md:text-xl mb-12 max-w-4xl mx-auto">
+                    Every picture tells a story. Let us help you tell yours with breathtaking photography. From portraits to landscapes, we turn fleeting moments into memories that last a lifetime. With an eye for detail and a heart for storytelling, our team of visual artists transforms your vision into stunning visuals.
+                </p>
+
+                <div class="flex flex-col lg:flex-row justify-center gap-12 text-gray-300">
+                    <div class="lg:w-1/3 p-6 bg-gray-800 bg-opacity-80 rounded-lg shadow-xl">
+                        <h3 class="text-xl font-semibold mb-4 text-yellow-300">Contact Information</h3>
+                        <ul class="space-y-2 text-left mx-auto max-w-xs">
+                            <li><a href="mailto:Manish@gmail.com" class="hover:text-yellow-300 transition-colors duration-200 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>Manish@gmail.com</a></li>
+                            <li><a href="mailto:MDstudio@gmail.com" class="hover:text-yellow-300 transition-colors duration-200 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>MDstudio@gmail.com</a></li>
+                            <li><span class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>Imagix Films, Ground Floor, Club 7 Mall, Thiruvalla, Kerala 689101</span></li>
+                            <li><a href="tel:+919988776655" class="hover:text-yellow-300 transition-colors duration-200 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.103 6.103l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>+91 9988776655</a></li>
+                            <li><a href="tel:+919988776655" class="hover:text-yellow-300 transition-colors duration-200 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.103 6.103l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>+91 9988776655</a></li>
+                        </ul>
+                    </div>
+                    <div class="lg:w-1/3 p-6 bg-gray-800 bg-opacity-80 rounded-lg shadow-xl">
+                        <h3 class="text-xl font-semibold mb-4 text-yellow-300">Send us a Message</h3>
+                        <form id="contactForm" class="space-y-4 text-left">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-200">Name</label>
+                                <input type="text" id="name" name="name" class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-yellow-300 focus:border-yellow-300">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-200">Email</label>
+                                <input type="email" id="email" name="email" class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-yellow-300 focus:border-yellow-300">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-200">Message</label>
+                                <textarea id="message" name="message" rows="4" class="mt-1 block w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-yellow-300 focus:border-yellow-300"></textarea>
+                            </div>
+                            <button type="submit" class="bg-yellow-300 text-gray-900 hover:bg-yellow-400 font-bold py-2 px-6 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Message Box for Feedback -->
+    <div id="messageBox" class="message-box">
+        Your email client will open.
+    </div>
+
+    <!-- Footer Section (Reused from Home Page) -->
+    <footer class="bg-gray-950 text-yellow-100 py-6 px-6 md:px-8 mt-12 rounded-t-lg">
+        <div class="container mx-auto text-center text-sm">
+            &copy; 2025 All Rights Reserved to Imagixfilms | Powered by Bitogrid.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle logic
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = mobileMenu.querySelectorAll('a');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            });
+
+            closeMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                    }
+                });
+            });
+
+            // Contact Form Submission Logic
+            const contactForm = document.getElementById('contactForm');
+            const messageBox = document.getElementById('messageBox');
+            const defaultEmail = "r.t.s.moorthi5@gmail.com"; // Default email address
+
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                // Basic validation
+                if (!name || !email || !message) {
+                    messageBox.textContent = "Please fill in all fields.";
+                    messageBox.classList.add('show');
+                    setTimeout(() => {
+                        messageBox.classList.remove('show');
+                    }, 3000);
+                    return;
+                }
+
+                // Construct mailto link
+                const subject = encodeURIComponent(`Message from ${name} via Contact Form`);
+                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+                const mailtoLink = `mailto:${defaultEmail}?subject=${subject}&body=${body}`;
+
+                // Open default email client
+                window.open(mailtoLink, '_blank');
+
+                // Provide user feedback
+                messageBox.textContent = "Your email client will open with the message pre-filled.";
+                messageBox.classList.add('show');
+
+                // Hide message box after 5 seconds
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                }, 5000);
+
+                // Optionally clear the form fields after opening mailto
+                contactForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>

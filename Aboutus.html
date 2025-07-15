@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - My Awesome Home Page</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font for the entire page */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            /* Removed background-color as the body background will be handled by pic.jpg */
+        }
+        /* Styles for the first section background */
+        .about-hero-background {
+            background-image: url('pic.jpg'); /* Using pic.jpg for the hero background */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .about-hero-overlay {
+            background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+            position: absolute;
+            inset: 0;
+        }
+        /* Ensure the header is positioned absolutely over the hero section */
+        .header-absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20; /* Ensure it's above the hero overlay */
+        }
+        /* Styles for the second section background */
+        .section-two-background {
+            background-image: url('andriya.jpg'); /* Placeholder image for section 2 */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Optional: Makes the background fixed while scrolling */
+            position: relative;
+            z-index: 1; /* Ensure content is above background */
+        }
+        .section-two-overlay {
+            background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for readability */
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+        }
+        .section-two-content {
+            position: relative;
+            z-index: 3; /* Ensure text and images are above the overlay */
+        }
+    </style>
+</head>
+<body class="text-yellow-100">
+
+    <!-- Header Section (Reused from Home Page for consistency) -->
+    <header class="header-absolute bg-transparent py-4 px-6 md:px-8">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Logo/Site Title -->
+            <div class="text-2xl font-bold text-yellow-300">
+                MyBrand
+            </div>
+
+            <!-- Burger Menu Button (Mobile) -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+
+            <!-- Navigation Menu (Desktop & Mobile Toggle) -->
+            <nav id="mobile-menu" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center justify-center w-full md:w-auto
+                                       fixed inset-0 bg-gray-950 z-50 md:relative md:bg-transparent md:flex-row md:justify-end">
+                <!-- Close Button (Mobile) -->
+                <button id="close-menu-button" class="md:hidden absolute top-4 right-6 text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <a href="index.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Home</a>
+                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">About us</a>
+                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Services</a>
+                <a href="photography.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Photography</a>
+                <a href="contactus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Contacts</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto">
+        <!-- Section 1: Static Image with About Us Text (Now full height like home page hero) -->
+        <section class="about-hero-background min-h-screen flex items-center justify-center text-white rounded-xl shadow-lg overflow-hidden relative">
+            <div class="about-hero-overlay"></div>
+            <div class="relative z-10 text-center">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-yellow-300">About Us</h1>
+            </div>
+        </section>
+
+        <!-- Section 2: Images and Detailed Text (Images now stacked, not overlapping) -->
+        <section class="my-16 px-6 md:px-8 py-16 rounded-xl shadow-lg section-two-background">
+            <div class="section-two-overlay"></div>
+            <div class="section-two-content flex flex-col md:flex-row items-center md:items-start gap-12">
+                <!-- Left Column: Images (Stacked) -->
+                <div class="w-full md:w-1/2 flex flex-col items-center md:items-start gap-6">
+                    <!-- Portrait Image -->
+                    <img src="eternal.png" alt="Portrait of Photographer" class="w-full max-w-sm h-auto object-cover rounded-xl shadow-xl">
+                    <!-- Landscape Image -->
+                    <img src="couple.jpg" alt="Landscape Photography" class="w-full max-w-md h-auto object-cover rounded-xl shadow-xl">
+                </div>
+
+                <!-- Right Column: Text Content -->
+                <div class="w-full md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight text-yellow-300">
+                        A Story-Crafting Wedding & Event Photography Studio in Chennai
+                    </h2>
+                    <p class="text-base md:text-lg mb-8 text-gray-300 leading-relaxed">
+                        At MD Studio, photography isn't just about taking pictures — it's about capturing the spirit of each moment, the emotion behind every glance, and the stories that unfold in silence. Based in Chennai, we specialize in wedding photography, concert shoots, candid storytelling, portrait sessions, and creative event coverage.
+                    </p>
+                    <p class="text-base md:text-lg mb-8 text-gray-400 leading-relaxed">
+                        From the vibrant chaos of live concerts to the quiet intimacy of wedding rituals, from spontaneous candid moments to well-crafted couple portraits, our team of passionate creatives is committed to transforming your memories into art that speaks beyond words.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Contact Us Section (Reused and adapted from Home Page) -->
+        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">
+                Get in Touch
+            </h2>
+            <p class="text-lg md:text-xl mb-12 text-center text-gray-300 max-w-4xl mx-auto">
+                Every picture tells a story. Let us help you tell yours with breathtaking photography. From portraits to landscapes, we turn fleeting moments into memories that last a lifetime. With an eye for detail and a heart for storytelling, our team of visual artists transforms your vision into stunning visuals.
+            </p>
+
+            <div class="flex flex-col lg:flex-row justify-between gap-12 text-gray-300">
+                <div class="lg:w-1/2">
+                    <h3 class="text-xl font-semibold mb-4 text-yellow-300">Our Story</h3>
+                    <p class="text-base md:text-lg mb-6 leading-relaxed">
+                        With an eye for detail and a heart for storytelling, our team of visual artists transforms fleeting moments into memories that last a lifetime. We are passionate about creating visual narratives that resonate with emotion and authenticity.
+                    </p>
+                </div>
+
+                <div class="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-yellow-300">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="index.html" class="hover:text-yellow-300 transition-colors duration-200">Home</a></li>
+                            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">About us</a></li>
+                            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">Services</a></li>
+                            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">Photography</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-yellow-300">Contact</h3>
+                        <ul class="space-y-2">
+                            <li><a href="mailto:Manish@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">Manish@gmail.com</a></li>
+                            <li><a href="mailto:MDstudio@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">MDstudio@gmail.com</a></li>
+                            <li>Imagix Films, Ground Floor, Club 7 Mall, Thiruvalla, Kerala 689101</li>
+                            <li>Phone no: +91 9988776655</li>
+                            <li>Phone no: +91 9988776655</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section (Reused from Home Page) -->
+    <footer class="bg-gray-950 text-yellow-100 py-6 px-6 md:px-8 mt-12 rounded-t-lg">
+        <div class="container mx-auto text-center text-sm">
+            &copy; 2025 All Rights Reserved to Imagixfilms | Powered by Bitogrid.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = mobileMenu.querySelectorAll('a');
+
+            // Mobile menu toggle logic
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            });
+
+            closeMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+
+            // Close mobile menu when a navigation link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
