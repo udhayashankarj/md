@@ -1,416 +1,420 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Awesome Home Page</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Link to external CSS file -->
-    <link href="style.css" rel="stylesheet">
-    <style>
-        /* Custom font for the entire page */
-        body {
-            font-family: 'Montserrat', sans-serif;
-        }
-        /* Ensure the header is positioned absolutely over the hero section */
-        .header-absolute {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 20; /* Ensure it's above the hero overlay */
-        }
-        /* Carousel specific styles */
-        .carousel-container {
-            overflow: hidden;
-            position: relative;
-        }
-        .carousel-slide {
-            display: none; /* Hide all slides by default */
-            width: 100%;
-            transition: opacity 0.5s ease-in-out;
-            position: relative; /* Needed for absolute positioning of caption */
-        }
-        .carousel-slide.active {
-            display: block; /* Show active slide */
-            opacity: 1;
-        }
-        .carousel-slide img {
-            width: 100%;
-            height: 400px; /* Fixed height for carousel images */
-            object-fit: contain; /* Changed to 'contain' to show full image */
-            object-position: center; /* Center the image within the container */
-            border-radius: 0.75rem; /* rounded-xl from Tailwind */
-            background-color: #000; /* Add a black background for letterboxing */
-        }
-        /* Carousel Caption Styles */
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            border-bottom-left-radius: 0.75rem;
-            border-bottom-right-radius: 0.75rem;
-        }
-        .carousel-dot {
-            width: 30px; /* Make it wider for a dash look */
-            height: 6px; /* Make it thinner for a dash look */
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 3px; /* Slightly rounded corners for the dash */
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .carousel-dot.active {
-            background-color: white;
-        }
-        /* Carousel arrow button styles */
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 1.5rem;
-            border-radius: 9999px; /* Fully rounded */
-            transition: background-color 0.3s ease;
-            z-index: 10; /* Ensure arrows are above slides */
-        }
-        .carousel-arrow:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-        .carousel-arrow.left {
-            left: 10px;
-        }
-        .carousel-arrow.right {
-            right: 10px;
-        }
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Awesome Home Page</title>
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Google Fonts - Montserrat -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+        <!-- Link to external CSS file -->
+        <link href="style.css" rel="stylesheet">
+        <style>
+            /* Custom font for the entire page */
+            body {
+                font-family: 'Montserrat', sans-serif;
+            }
+            /* Ensure the header is positioned absolutely over the hero section */
+            .header-absolute {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 20; /* Ensure it's above the hero overlay */
+            }
+            /* Carousel specific styles */
+            .carousel-container {
+                overflow: hidden;
+                position: relative;
+            }
+            .carousel-slide {
+                display: none; /* Hide all slides by default */
+                width: 100%;
+                transition: opacity 0.5s ease-in-out;
+                position: relative; /* Needed for absolute positioning of caption */
+            }
+            .carousel-slide.active {
+                display: block; /* Show active slide */
+                opacity: 1;
+            }
+            .carousel-slide img {
+                width: 100%;
+                height: 400px; /* Fixed height for carousel images */
+                object-fit: contain; /* Changed to 'contain' to show full image */
+                object-position: center; /* Center the image within the container */
+                border-radius: 0.75rem; /* rounded-xl from Tailwind */
+                background-color: #000; /* Add a black background for letterboxing */
+            }
+            /* Carousel Caption Styles */
+            .carousel-caption {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+                color: white;
+                padding: 1rem;
+                text-align: center;
+                border-bottom-left-radius: 0.75rem;
+                border-bottom-right-radius: 0.75rem;
+            }
+            .carousel-dot {
+                width: 30px; /* Make it wider for a dash look */
+                height: 6px; /* Make it thinner for a dash look */
+                background-color: rgba(255, 255, 255, 0.5);
+                border-radius: 3px; /* Slightly rounded corners for the dash */
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            .carousel-dot.active {
+                background-color: white;
+            }
+            /* Carousel arrow button styles */
+            .carousel-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                cursor: pointer;
+                font-size: 1.5rem;
+                border-radius: 9999px; /* Fully rounded */
+                transition: background-color 0.3s ease;
+                z-index: 10; /* Ensure arrows are above slides */
+            }
+            .carousel-arrow:hover {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+            .carousel-arrow.left {
+                left: 10px;
+            }
+            .carousel-arrow.right {
+                right: 10px;
+            }
 
-        /* New Section specific styles */
-        .image-overlay-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem; /* rounded-xl */
-        }
-        .image-overlay {
-            position: absolute;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.6); /* 60% opacity black */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            font-weight: 600;
-            font-size: 1.5rem; /* text-2xl */
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .image-overlay-container:hover .image-overlay {
-            opacity: 1;
-        }
-        .image-overlay-container img {
-            width: 100%;
-            height: 250px; /* Fixed height for consistency */
-            object-fit: cover;
-            transition: transform 0.3s ease-in-out;
-        }
-        .image-overlay-container:hover img {
-            transform: scale(1.05); /* Slight zoom on hover */
-        }
-    </style>
-</head>
-<body class="text-yellow-100">
+            /* New Section specific styles */
+            .image-overlay-container {
+                position: relative;
+                overflow: hidden;
+                border-radius: 0.75rem; /* rounded-xl */
+            }
+            .image-overlay {
+                position: absolute;
+                inset: 0;
+                background-color: rgba(0, 0, 0, 0.6); /* 60% opacity black */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: white;
+                font-weight: 600;
+                font-size: 1.5rem; /* text-2xl */
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
+            .image-overlay-container:hover .image-overlay {
+                opacity: 1;
+            }
+            .image-overlay-container img {
+                width: 100%;
+                height: 250px; /* Fixed height for consistency */
+                object-fit: cover;
+                transition: transform 0.3s ease-in-out;
+            }
+            .image-overlay-container:hover img {
+                transform: scale(1.05); /* Slight zoom on hover */
+            }
+        </style>
+    </head>
+    <body class="text-yellow-100">
 
-    <!-- Header Section - Now transparent and absolute positioned -->
-    <header class="header-absolute bg-transparent py-4 px-6 md:px-8">
-        <div class="container mx-auto flex items-center justify-between">
-            <!-- Logo/Site Title -->
-            <div class="text-2xl font-bold text-yellow-300">
-                MyBrand
+        <!-- Header Section - Now transparent and absolute positioned -->
+        <header class="header-absolute bg-transparent py-4 px-6 md:px-8">
+            <div class="container mx-auto flex items-center justify-between">
+                <!-- Logo/Site Title -->
+                <!-- <div class="text-2xl font-bold text-yellow-300">
+                    MyBrand
+                </div> -->
+                <div class="text-2xl font-bold text-yellow-300">
+                <!-- Replaced "MyBrand" with MD.PNG logo with specified size and rounded corners -->
+                <img src="MD.PNG" alt="MD Studio Logo" class="w-16 h-16 rounded-full">
             </div>
 
-            <!-- Burger Menu Button (Mobile) -->
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-
-            <!-- Navigation Menu (Desktop & Mobile Toggle) -->
-            <nav id="mobile-menu" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center justify-center w-full md:w-auto
-                                       fixed inset-0 bg-gray-950 z-50 md:relative md:bg-transparent md:flex-row md:justify-end">
-                <!-- Close Button (Mobile) -->
-                <button id="close-menu-button" class="md:hidden absolute top-4 right-6 text-white focus:outline-none">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <!-- Burger Menu Button (Mobile) -->
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
 
-                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Home</a>
-                <a href="Aboutus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">About us</a>
-                <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Services</a>
-                <a href="photography.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Photography</a>
-                <a href="contactus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Contacts</a>
-            </nav>
-        </div>
-    </header>
+                <!-- Navigation Menu (Desktop & Mobile Toggle) -->
+                <nav id="mobile-menu" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center justify-center w-full md:w-auto
+                                        fixed inset-0 bg-gray-950 z-50 md:relative md:bg-transparent md:flex-row md:justify-end">
+                    <!-- Close Button (Mobile) -->
+                    <button id="close-menu-button" class="md:hidden absolute top-4 right-6 text-white focus:outline-none">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
 
-    <!-- Main Content -->
-    <main class="container mx-auto">
-        <!-- Hero Section -->
-        <section class="hero-background text-white p-10 md:p-16 rounded-xl shadow-lg text-center overflow-hidden flex items-center justify-center min-h-screen">
-            <div class="hero-overlay"></div> <!-- Dark overlay -->
-            <div class="relative z-10"> <!-- Content on top of the overlay -->
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
-                    Your personal photographer
-                </h1>
-                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90">
-                    I will accompany you on a trip to any corner of the earth or to deep space to capture the brightest and most memorable moments.
-                </p>
-                <a href="photography.html" class="inline-block bg-yellow-300 text-gray-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-                    Get started
-                </a>
+                    <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Home</a>
+                    <a href="Aboutus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">About us</a>
+                    <a href="#" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Services</a>
+                    <a href="photography.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Photography</a>
+                    <a href="contactus.html" class="text-yellow-100 hover:text-yellow-300 font-medium px-3 py-2 rounded-md transition duration-300 ease-in-out block md:inline-block">Contacts</a>
+                </nav>
             </div>
-        </section>
+        </header>
 
-        <!-- Section: Capturing Stories -->
-        <section class="my-16 px-6 md:px-8">
-            <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
-                <!-- Left Column: Images -->
-                <div class="relative w-full md:w-1/2 flex justify-center md:justify-start">
-                    <!-- Portrait Image -->
-                    <img src="andriya.jpg" alt="Portrait Photography" class="w-64 h-80 md:w-72 md:h-96 object-cover rounded-xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300 ease-in-out z-10">
-                    <!-- Landscape Image (overlapping) -->
-                    <img src="couple.jpg" alt="Landscape Photography" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-auto md:left-auto md:relative md:-ml-24 md:mt-20 w-80 h-52 md:w-96 md:h-64 object-cover rounded-xl shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-300 ease-in-out z-0">
-                </div>
-
-                <!-- Right Column: Text and Button -->
-                <div class="w-full md:w-1/2 text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight text-yellow-300">
-                        Capturing Stories.<br>Creating Memories.
-                    </h2>
-                    <p class="text-lg md:text-xl mb-8 text-gray-300">
-                        A Creative Wedding & Lifestyle Photography Studio Based in Chennai
+        <!-- Main Content -->
+        <main class="container mx-auto">
+            <!-- Hero Section -->
+            <section class="hero-background text-white p-10 md:p-16 rounded-xl shadow-lg text-center overflow-hidden flex items-center justify-center min-h-screen">
+                <div class="hero-overlay"></div> <!-- Dark overlay -->
+                <div class="relative z-10"> <!-- Content on top of the overlay -->
+                    <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+                        Your personal photographer
+                    </h1>
+                    <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90">
+                        I will accompany you on a trip to any corner of the earth or to deep space to capture the brightest and most memorable moments.
                     </p>
-                    <p class="text-base md:text-lg mb-8 text-gray-400 leading-relaxed">
-                        At MD studio, we believe every moment holds a story worth remembering. Whether it's the timeless charm of wedding rituals, the unfiltered joy of a child's laughter, the quiet intimacy of candid portraits, or the bold expression of fashion shoots — we freeze emotions in their most authentic form.
-                    </p>
-                    <a href="about.html" class="inline-block bg-yellow-300 text-gray-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-                        Read More
+                    <a href="photography.html" class="inline-block bg-yellow-300 text-gray-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                        Get started
                     </a>
                 </div>
+            </section>
+
+            <!-- Section: Capturing Stories -->
+            <section class="my-16 px-6 md:px-8">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
+                    <!-- Left Column: Images -->
+                    <div class="relative w-full md:w-1/2 flex justify-center md:justify-start">
+                        <!-- Portrait Image -->
+                        <img src="andriya.jpg" alt="Portrait Photography" class="w-64 h-80 md:w-72 md:h-96 object-cover rounded-xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300 ease-in-out z-10">
+                        <!-- Landscape Image (overlapping) -->
+                        <img src="couple.jpg" alt="Landscape Photography" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-auto md:left-auto md:relative md:-ml-24 md:mt-20 w-80 h-52 md:w-96 md:h-64 object-cover rounded-xl shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-300 ease-in-out z-0">
+                    </div>
+
+                    <!-- Right Column: Text and Button -->
+                    <div class="w-full md:w-1/2 text-center md:text-left">
+                        <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight text-yellow-300">
+                            Capturing Stories.<br>Creating Memories.
+                        </h2>
+                        <p class="text-lg md:text-xl mb-8 text-gray-300">
+                            A Creative Wedding & Lifestyle Photography Studio Based in Chennai
+                        </p>
+                        <p class="text-base md:text-lg mb-8 text-gray-400 leading-relaxed">
+                            At MD studio, we believe every moment holds a story worth remembering. Whether it's the timeless charm of wedding rituals, the unfiltered joy of a child's laughter, the quiet intimacy of candid portraits, or the bold expression of fashion shoots — we freeze emotions in their most authentic form.
+                        </p>
+                        <a href="about.html" class="inline-block bg-yellow-300 text-gray-900 hover:bg-yellow-400 font-bold py-3 px-8 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Carousel Section -->
+            <section class="my-12 px-6 md:px-8">
+                <h2 class="text-3xl font-bold text-center mb-8 text-yellow-300">Our Latest Work</h2>
+                <div class="carousel-container rounded-xl shadow-lg">
+                    <div class="carousel-slide active">
+                        <img src="concert/c4.jpg" alt="Carousel Image 1">
+                        <div class="carousel-caption">
+                            <h3 class="text-xl font-semibold">Energetic Concert Vibes</h3>
+                            <p class="text-sm text-gray-200">Capturing the raw energy of live performances.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="concert/c5.jpg" alt="Carousel Image 2">
+                        <div class="carousel-caption">
+                            <h3 class="text-xl font-semibold">Spotlight on the Stage</h3>
+                            <p class="text-sm text-gray-200">Every artist's moment in the limelight.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="concert/c6.jpg" alt="Carousel Image 3">
+                        <div class="carousel-caption">
+                            <h3 class="text-xl font-semibold">Crowd's Ecstasy</h3>
+                            <p class="text-sm text-gray-200">The unforgettable atmosphere of a packed venue.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="concert/c8.jpg" alt="Carousel Image 4">
+                        <div class="carousel-caption">
+                            <h3 class="text-xl font-semibold">Behind the Scenes</h3>
+                            <p class="text-sm text-gray-200">Glimpses of preparation and passion.</p>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Navigation Arrows -->
+                    <button class="carousel-arrow left" id="prevSlide">&#10094;</button> <!-- Left arrow -->
+                    <button class="carousel-arrow right" id="nextSlide">&#10095;</button> <!-- Right arrow -->
+
+                    <!-- Carousel Navigation Dots -->
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        <span class="carousel-dot active" data-slide="0"></span>
+                        <span class="carousel-dot" data-slide="1"></span>
+                        <span class="carousel-dot" data-slide="2"></span>
+                        <span class="carousel-dot" data-slide="3"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- New Section: Image Grid with Overlays and Detailed Content -->
+            <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">
+                    Capturing Stories. Creating Memories.
+                </h2>
+                <p class="text-lg md:text-xl mb-12 text-center text-gray-300 max-w-4xl mx-auto">
+                    At MD studio, we believe every moment holds a story worth remembering. Whether it's the timeless charm of wedding rituals, the unfiltered joy of a child's laughter, the quiet intimacy of candid portraits, or the bold expression of fashion shoots — we freeze emotions in their most authentic form.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <!-- Image Grid Item 1 -->
+                    <div class="image-overlay-container">
+                        <img src="wedding/w5.png" alt="Wedding Photography">
+                        <div class="image-overlay">Weddings</div>
+                    </div>
+                    <!-- Image Grid Item 2 -->
+                    <div class="image-overlay-container">
+                        <img src="wedding/w9.png" alt="Portrait Photography">
+                        <div class="image-overlay">Portraits</div>
+                    </div>
+                    <!-- Image Grid Item 3 -->
+                    <div class="image-overlay-container">
+                        <img src="concert/c9 (4).jpeg" alt="Event Photography">
+                        <div class="image-overlay">Events</div>
+                    </div>
+                    <!-- Image Grid Item 4 -->
+                    <div class="image-overlay-container">
+                        <img src="concert/c9 (3).jpeg" alt="Fashion Photography">
+                        <div class="image-overlay">Fashion</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col lg:flex-row justify-between gap-12 text-gray-300">
+                    <div class="lg:w-1/2">
+                        <p class="text-base md:text-lg mb-6 leading-relaxed">
+                            Every picture tells a story. Let us help you tell yours with breathtaking photography. From portraits to landscapes, we turn fleeting moments into memories that last a lifetime. With an eye for detail and a heart for storytelling, our team of visual artists transforms your vision into stunning visuals.
+                        </p>
+                    </div>
+
+                    <div class="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-yellow-300">Quick Links</h3>
+                            <ul class="space-y-2">
+                                <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">Home</a></li>
+                                <li><a href="Aboutus.html" class="hover:text-yellow-300 transition-colors duration-200">About us</a></li>
+                                <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">Services</a></li>
+                                <li><a href="photography.html" class="hover:text-yellow-300 transition-colors duration-200">Photography</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-yellow-300">Contact</h3>
+                            <ul class="space-y-2">
+                                <li><a href="mailto:Manish@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">Manish@gmail.com</a></li>
+                                <li><a href="mailto:MDstudio@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">MDstudio@gmail.com</a></li>
+                                <li>23/c, ayyavoo colony, Aminjikarai, Chennai 29</li>
+                                <li>Phone no: +91 9841126256</li>
+                                <li>Phone no: +91 9840137828</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature Cards Section -->
+            
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="bg-gray-950 text-yellow-100 py-6 px-6 md:px-8 mt-12 rounded-t-lg"> <!-- Even darker footer background -->
+            <div class="container mx-auto text-center text-sm">
+                &copy; 2025 MyBrand. All rights reserved.
             </div>
-        </section>
+        </footer>
 
-        <!-- Carousel Section -->
-        <section class="my-12 px-6 md:px-8">
-            <h2 class="text-3xl font-bold text-center mb-8 text-yellow-300">Our Latest Work</h2>
-            <div class="carousel-container rounded-xl shadow-lg">
-                <div class="carousel-slide active">
-                    <img src="concert/c3.jpg" alt="Carousel Image 1">
-                    <div class="carousel-caption">
-                        <h3 class="text-xl font-semibold">Energetic Concert Vibes</h3>
-                        <p class="text-sm text-gray-200">Capturing the raw energy of live performances.</p>
-                    </div>
-                </div>
-                <div class="carousel-slide">
-                    <img src="concert/c2.jpg" alt="Carousel Image 2">
-                    <div class="carousel-caption">
-                        <h3 class="text-xl font-semibold">Spotlight on the Stage</h3>
-                        <p class="text-sm text-gray-200">Every artist's moment in the limelight.</p>
-                    </div>
-                </div>
-                <div class="carousel-slide">
-                    <img src="concert/c6.jpg" alt="Carousel Image 3">
-                    <div class="carousel-caption">
-                        <h3 class="text-xl font-semibold">Crowd's Ecstasy</h3>
-                        <p class="text-sm text-gray-200">The unforgettable atmosphere of a packed venue.</p>
-                    </div>
-                </div>
-                <div class="carousel-slide">
-                    <img src="concert/c8.jpg" alt="Carousel Image 4">
-                    <div class="carousel-caption">
-                        <h3 class="text-xl font-semibold">Behind the Scenes</h3>
-                        <p class="text-sm text-gray-200">Glimpses of preparation and passion.</p>
-                    </div>
-                </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let currentSlide = 0;
+                const slides = document.querySelectorAll('.carousel-slide');
+                const dots = document.querySelectorAll('.carousel-dot');
+                const prevButton = document.getElementById('prevSlide');
+                const nextButton = document.getElementById('nextSlide');
+                const totalSlides = slides.length;
 
-                <!-- Carousel Navigation Arrows -->
-                <button class="carousel-arrow left" id="prevSlide">&#10094;</button> <!-- Left arrow -->
-                <button class="carousel-arrow right" id="nextSlide">&#10095;</button> <!-- Right arrow -->
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const closeMenuButton = document.getElementById('close-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                const navLinks = mobileMenu.querySelectorAll('a');
 
-                <!-- Carousel Navigation Dots -->
-                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                    <span class="carousel-dot active" data-slide="0"></span>
-                    <span class="carousel-dot" data-slide="1"></span>
-                    <span class="carousel-dot" data-slide="2"></span>
-                    <span class="carousel-dot" data-slide="3"></span>
-                </div>
-            </div>
-        </section>
+                function showSlide(index) {
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    slides[index].classList.add('active');
+                    dots[index].classList.add('active');
+                }
 
-        <!-- New Section: Image Grid with Overlays and Detailed Content -->
-        <section class="my-16 px-6 md:px-8 bg-gray-900 p-8 rounded-xl shadow-lg">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-8 text-center text-yellow-300">
-                Capturing Stories. Creating Memories.
-            </h2>
-            <p class="text-lg md:text-xl mb-12 text-center text-gray-300 max-w-4xl mx-auto">
-                At MD studio, we believe every moment holds a story worth remembering. Whether it's the timeless charm of wedding rituals, the unfiltered joy of a child's laughter, the quiet intimacy of candid portraits, or the bold expression of fashion shoots — we freeze emotions in their most authentic form.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                <!-- Image Grid Item 1 -->
-                <div class="image-overlay-container">
-                    <img src="wedding/w5.png" alt="Wedding Photography">
-                    <div class="image-overlay">Weddings</div>
-                </div>
-                <!-- Image Grid Item 2 -->
-                <div class="image-overlay-container">
-                    <img src="wedding/w9.png" alt="Portrait Photography">
-                    <div class="image-overlay">Portraits</div>
-                </div>
-                <!-- Image Grid Item 3 -->
-                <div class="image-overlay-container">
-                    <img src="concert/c5.jpg" alt="Event Photography">
-                    <div class="image-overlay">Events</div>
-                </div>
-                <!-- Image Grid Item 4 -->
-                <div class="image-overlay-container">
-                    <img src="concert/c3.jpg" alt="Fashion Photography">
-                    <div class="image-overlay">Fashion</div>
-                </div>
-            </div>
-
-            <div class="flex flex-col lg:flex-row justify-between gap-12 text-gray-300">
-                <div class="lg:w-1/2">
-                    <p class="text-base md:text-lg mb-6 leading-relaxed">
-                        Every picture tells a story. Let us help you tell yours with breathtaking photography. From portraits to landscapes, we turn fleeting moments into memories that last a lifetime. With an eye for detail and a heart for storytelling, our team of visual artists transforms your vision into stunning visuals.
-                    </p>
-                </div>
-
-                <div class="lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-yellow-300">Quick Links</h3>
-                        <ul class="space-y-2">
-                            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">Home</a></li>
-                            <li><a href="Aboutus.html" class="hover:text-yellow-300 transition-colors duration-200">About us</a></li>
-                            <li><a href="#" class="hover:text-yellow-300 transition-colors duration-200">Services</a></li>
-                            <li><a href="photography.html" class="hover:text-yellow-300 transition-colors duration-200">Photography</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-yellow-300">Contact</h3>
-                        <ul class="space-y-2">
-                            <li><a href="mailto:Manish@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">Manish@gmail.com</a></li>
-                            <li><a href="mailto:MDstudio@gmail.com" class="hover:text-yellow-300 transition-colors duration-200">MDstudio@gmail.com</a></li>
-                            <li>Imagix Films, Ground Floor, Club 7 Mall, Thiruvalla, Kerala 689101</li>
-                            <li>Phone no: +91 9988776655</li>
-                            <li>Phone no: +91 9988776655</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feature Cards Section -->
-        
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="bg-gray-950 text-yellow-100 py-6 px-6 md:px-8 mt-12 rounded-t-lg"> <!-- Even darker footer background -->
-        <div class="container mx-auto text-center text-sm">
-            &copy; 2025 MyBrand. All rights reserved.
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let currentSlide = 0;
-            const slides = document.querySelectorAll('.carousel-slide');
-            const dots = document.querySelectorAll('.carousel-dot');
-            const prevButton = document.getElementById('prevSlide');
-            const nextButton = document.getElementById('nextSlide');
-            const totalSlides = slides.length;
-
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const closeMenuButton = document.getElementById('close-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navLinks = mobileMenu.querySelectorAll('a');
-
-            function showSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                dots.forEach(dot => dot.classList.remove('active'));
-                slides[index].classList.add('active');
-                dots[index].classList.add('active');
-            }
-
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                showSlide(currentSlide);
-            }
-
-            function prevSlide() {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                showSlide(currentSlide);
-            }
-
-            let slideInterval = setInterval(nextSlide, 5000);
-
-            function resetInterval() {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, 5000);
-            }
-
-            dots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    const slideIndex = parseInt(this.dataset.slide);
-                    currentSlide = slideIndex;
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
                     showSlide(currentSlide);
+                }
+
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    showSlide(currentSlide);
+                }
+
+                let slideInterval = setInterval(nextSlide, 5000);
+
+                function resetInterval() {
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextSlide, 5000);
+                }
+
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.dataset.slide);
+                        currentSlide = slideIndex;
+                        showSlide(currentSlide);
+                        resetInterval();
+                    });
+                });
+
+                prevButton.addEventListener('click', function() {
+                    prevSlide();
                     resetInterval();
                 });
-            });
 
-            prevButton.addEventListener('click', function() {
-                prevSlide();
-                resetInterval();
-            });
-
-            nextButton.addEventListener('click', function() {
-                nextSlide();
-                resetInterval();
-            });
-
-            // Mobile menu toggle logic
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-            });
-
-            closeMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-            });
-
-            // Close mobile menu when a navigation link is clicked
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth < 768) {
-                        mobileMenu.classList.add('hidden');
-                        mobileMenu.classList.remove('flex');
-                    }
+                nextButton.addEventListener('click', function() {
+                    nextSlide();
+                    resetInterval();
                 });
-            });
 
-            // Initial display of the first slide
-            showSlide(currentSlide);
-        });
-    </script>
-</body>
-</html>
+                // Mobile menu toggle logic
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                });
+
+                closeMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                });
+
+                // Close mobile menu when a navigation link is clicked
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (window.innerWidth < 768) {
+                            mobileMenu.classList.add('hidden');
+                            mobileMenu.classList.remove('flex');
+                        }
+                    });
+                });
+
+                // Initial display of the first slide
+                showSlide(currentSlide);
+            });
+        </script>
+    </body>
+    </html>
